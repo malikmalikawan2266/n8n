@@ -110,8 +110,11 @@ Return the response in JSON format.
 `;
     }
 
+    // Set smart_llm_selector based on modelName, default to 'balance' for non-Claude models
+    const smartLlmSelector = this.modelName.includes('claude') ? 'quality' : 'balance';
+
     const body = {
-      smart_llm_selector: this.modelName.includes('claude') ? 'quality' : 'speed',
+      smart_llm_selector: smartLlmSelector,
       message: prompt,
       replace_failed_models: true,
       ...(this.temperature && { temperature: this.temperature }),
@@ -145,7 +148,8 @@ Return the response in JSON format.
         // Adjusted parsing for nested response structure
         let completion = '';
         if (data?.data?.completion?.choices?.length > 0) {
-          const choice = data.data.completion.choices[0];
+          const choice = data.data.com
+pletion.choices[0];
           completion = choice.message?.content || choice.text || '';
         } else if (data?.completion || data?.message || data?.text || data?.response || data?.result) {
           completion = data.completion || data.message || data.text || data.response || data.result || '';
