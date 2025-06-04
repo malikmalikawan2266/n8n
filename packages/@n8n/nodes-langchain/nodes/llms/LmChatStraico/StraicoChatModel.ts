@@ -148,8 +148,7 @@ Return the response in JSON format.
         // Adjusted parsing for nested response structure
         let completion = '';
         if (data?.data?.completion?.choices?.length > 0) {
-          const choice = data.data.com
-pletion.choices[0];
+          const choice = data.data.completion.choices[0];
           completion = choice.message?.content || choice.text || '';
         } else if (data?.completion || data?.message || data?.text || data?.response || data?.result) {
           completion = data.completion || data.message || data.text || data.response || data.result || '';
